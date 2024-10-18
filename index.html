@@ -65,39 +65,39 @@
         <div></div>
     </div>
 
-    <div class="flex">
+    <div class="flex flex-col lg:flex-row">
         <!-- Side Menu -->
-        <nav class="bg-gray-800 w-64 min-h-screen">
+        <nav class="bg-gray-800 w-full lg:w-64 h-[200px] md:min-h-screen p-4 lg:p-0">
             <div class="text-white text-center p-4">
                 <h1 class="text-2xl font-bold">Weather App</h1>
             </div>
-            <ul class="mt-10">
-                <li><a href="#" class="block py-2 px-4 text-white hover:bg-gray-600">Dashboard</a></li>
-                <li><a href="./Tables.html" class="block py-2 px-4 text-white hover:bg-gray-600">Tables</a></li>
+            <ul class="mt-10 flex flex-col gap-6 items-center text-[18px]">
+                <li><a href="#" class="block py-2 text-[20px] px-4 text-white hover:bg-gray-600">Dashboard</a></li>
+                <li><a href="./Tables.html" class="block text-[20px] py-2 px-4 text-white hover:bg-gray-600">Tables</a></li>
             </ul>
         </nav>
 
         <!-- Main Content -->
         <main class="flex-1 p-6">
             <!-- Weather Widget -->
-            <section class="p-10 w-64 h-64 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 text-white shadow-lg flex flex-col justify-center items-center mx-auto my-8 transform hover:scale-105 transition-transform duration-300 ease-in-out">
-                <h2 class="text-2xl font-semibold">City: <span id="city-name"></span></h2>
-                <p id="weather-description" class="text-lg mt-2"></p>
+            <section class="p-6 lg:p-10 w-full lg:w-64 h-64 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 text-white shadow-lg flex flex-col justify-center items-center mx-auto my-8 transform hover:scale-105 transition-transform duration-300 ease-in-out">
+                <h2 class="text-xl lg:text-2xl font-semibold">City: <span id="city-name"></span></h2>
+                <p id="weather-description" class="text-base lg:text-lg mt-2"></p>
                 <div class="flex justify-between items-center">
-                    <p class="text-lg mt-2">Temperature:</p> <br/>
-                    <p class="text-lg mt-2"><span id="temperature"></span>°C</p>
+                    <p class="text-base lg:text-lg mt-2">Temperature:</p>
+                    <p class="text-base lg:text-lg mt-2 ml-2"><span id="temperature"></span>°C</p>
                 </div>
             </section>
 
             <!-- Input for City -->
             <div class="mt-4">
                 <input type="text" id="cityInput" placeholder="Enter city" class="border p-2 w-full rounded-lg">
-                <button onclick="fetchWeatherData(document.getElementById('cityInput').value)" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600">Get Weather</button>
+                <button onclick="fetchWeatherData(document.getElementById('cityInput').value)" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 w-full lg:w-auto">Get Weather</button>
             </div>
 
             <!-- Charts Section -->
-            <section class="">
-                <div class="flex justify-between w-full py-10">
+            <section class="mt-6 lg:mt-10">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- Bar Chart -->
                     <div class="bg-white p-4 rounded-lg shadow-md">
                         <canvas id="tempBarChart"></canvas>
