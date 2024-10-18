@@ -16,16 +16,13 @@
     <script type="module">
         import { GoogleGenerativeAI } from "@google/generative-ai";
 
-        // Fetch your API_KEY
         const API_KEY = 'AIzaSyAwbLzpfIiEbI4tuMjmCA8Qsr4cJs7h-pU';
         const genAI = new GoogleGenerativeAI(API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-        // Function to handle chat interaction
         window.handleChat = async function() {
             const userPrompt = document.getElementById("userPrompt").value;
             if (userPrompt) {
-                // Check for weather-related keywords
                 if (userPrompt.toLowerCase().includes('weather')) {
                     openCityModal();
                 } else {
@@ -35,31 +32,25 @@
             }
         };
 
-        // Open the city input modal
         window.openCityModal = function() {
             document.getElementById("cityModal").classList.remove("hidden");
         };
 
-        // Close the city input modal
         window.closeCityModal = function() {
             document.getElementById("cityModal").classList.add("hidden");
         };
 
-        // Fetch weather forecast for the given city
         window.fetchCityWeather = async function() {
             const city = document.getElementById("cityInput").value;
-             // Default to Islamabad
             await fetchWeatherForecast(city);
             closeCityModal();
-            closeChatModal(); // Close the chat modal after fetching weather
+            closeChatModal();
         };
 
-        // Open the chat modal
         window.openChatModal = function() {
             document.getElementById("chatModal").classList.remove("hidden");
         };
 
-        // Close the chat modal
         window.closeChatModal = function() {
             document.getElementById("chatModal").classList.add("hidden");
         };
@@ -68,8 +59,8 @@
         .gradient-bg {
             background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
         }
-      /* Loader Styling */
-      .loader {
+
+        .loader {
             display: none;
             position: fixed;
             left: 0;
@@ -83,8 +74,8 @@
         }
 
         .loader div {
-            border: 16px solid #f3f3f3; /* Light grey */
-            border-top: 16px solid #3498db; /* Blue */
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
             border-radius: 50%;
             width: 120px;
             height: 120px;
@@ -98,20 +89,19 @@
     </style>
 </head>
 <body class="bg-gray-100">
-       <!-- Loader Element -->
-       <div class="loader flex">
+    <div class="loader flex">
         <div></div>
     </div>
 
-    <div class="flex">
+    <div class="flex flex-col md:flex-row">
         <!-- Side Menu -->
-        <nav class="bg-gray-800 w-64 min-h-screen">
+        <nav class="bg-gray-800 w-full lg:w-64 h-[200px] md:min-h-screen p-4 lg:p-0">
             <div class="text-white text-center p-4">
                 <h1 class="text-2xl font-bold">Weather App</h1>
             </div>
-            <ul class="mt-10">
-                <li><a href="index.html" class="block py-2 px-4 text-white hover:bg-gray-600">Dashboard</a></li>
-                <li><a href="Tables.html" class="block py-2 px-4 text-white hover:bg-gray-600">Tables</a></li>
+            <ul class="mt-10 flex flex-col gap-6 items-center text-[18px]">
+                <li><a href="./index.html" class="block py-2 text-[20px] px-4 text-white hover:bg-gray-600">Dashboard</a></li>
+                <li><a href="./Tables.html" class="block text-[20px] py-2 px-4 text-white hover:bg-gray-600">Tables</a></li>
             </ul>
         </nav>
 
@@ -120,44 +110,45 @@
             <section class="bg-white p-4 rounded-lg shadow-md">
                 <h2 class="text-2xl font-semibold mb-4 gradient-bg text-white text-center p-2 rounded">5-Day Weather Forecast for <span id="forecastCityName">Islamabad</span></h2>
                 <button id="chatbot-btn" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded" onclick="openChatModal()">Chat with Bot</button>
-                <table class="min-w-full border border-gray-300">
-                    <thead class="bg-gray-200">
-                        <tr>
-                            <th class="border-b-2 p-2">Date</th>
-                            <th class="border-b-2 p-2">Temperature (°C)</th>
-                            <th class="border-b-2 p-2">Weather Condition</th>
-                        </tr>
-                    </thead>
-                    <tbody id="forecastTable">
-                        <!-- Weather data will be populated here -->
-                    </tbody>
-                </table>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full border border-gray-300">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="border-b-2 p-2">Date</th>
+                                <th class="border-b-2 p-2">Temperature (°C)</th>
+                                <th class="border-b-2 p-2">Weather Condition</th>
+                            </tr>
+                        </thead>
+                        <tbody id="forecastTable">
+                            <!-- Weather data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </main>
     </div>
 
-    <!-- Loader Element -->
-  
     <!-- Chat Modal -->
-    <div id="chatModal" class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <div class="bg-white rounded-lg p-6 w-96">
+    <div id="chatModal" class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 p-4">
+        <div class="bg-white rounded-lg p-6 w-full max-w-lg">
             <h2 class="text-xl font-semibold mb-4">Chat with the Bot</h2>
             <textarea id="userPrompt" class="border p-2 w-full mb-4" placeholder="Type your message..."></textarea>
-            <button class="px-4 py-2 bg-blue-500 text-white rounded" onclick="handleChat()">Send</button>
-            <button class="px-4 py-2 bg-gray-300 text-black rounded" onclick="closeChatModal()">Close</button>
+            <button class="px-4 py-2 bg-blue-500 text-white rounded w-full" onclick="handleChat()">Send</button>
+            <button class="px-4 py-2 bg-gray-300 text-black rounded w-full mt-2" onclick="closeChatModal()">Close</button>
             <div id="chatResponse" class="mt-4 text-gray-700"></div>
         </div>
     </div>
 
     <!-- City Input Modal -->
-    <div id="cityModal" class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <div class="bg-white rounded-lg p-6 w-96">
+    <div id="cityModal" class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 p-4">
+        <div class="bg-white rounded-lg p-6 w-full max-w-lg">
             <h2 class="text-xl font-semibold mb-4">Enter City Name</h2>
             <input type="text" id="cityInput" class="border p-2 w-full mb-4" placeholder="City name">
-            <button class="px-4 py-2 bg-blue-500 text-white rounded" onclick="fetchCityWeather()">Get Weather</button>
-            <button class="px-4 py-2 bg-gray-300 text-black rounded" onclick="closeCityModal()">Close</button>
+            <button class="px-4 py-2 bg-blue-500 text-white rounded w-full" onclick="fetchCityWeather()">Get Weather</button>
+            <button class="px-4 py-2 bg-gray-300 text-black rounded w-full mt-2" onclick="closeCityModal()">Close</button>
         </div>
     </div>
+
     <script src="tableforecast.js"></script>
-</body>
+</body>  
 </html>
