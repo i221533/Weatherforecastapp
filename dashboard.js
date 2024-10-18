@@ -3,7 +3,7 @@ const cityNameElement = document.getElementById('city-name');
 const weatherDescriptionElement = document.getElementById('weather-description');
 const temperatureElement = document.getElementById('temperature');
 const loader = document.querySelector('.loader');
-
+const errorMessage =document.getElementById("errormsg")
 // Function to fetch weather data
 async function fetchWeatherData(city) {
     try {
@@ -14,7 +14,15 @@ async function fetchWeatherData(city) {
         if (response.ok) {
             updateWeatherWidget(data);
             updateCharts(data);
-        } else {
+        } 
+        else if(data.message==="city not found")
+        {
+                        errorMessage.innerText="Invalid City name Please input Correct City Again"
+                        setInterval(()=>{
+                            errorMessage.innerText=''
+                        },3000)
+        }
+        else {
             console.error("Error fetching weather data:", data.message);
         }
     } catch (error) {
